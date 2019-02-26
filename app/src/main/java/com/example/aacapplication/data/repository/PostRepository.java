@@ -4,12 +4,10 @@ import android.util.Log;
 
 import com.example.aacapplication.api.PostService;
 import com.example.aacapplication.data.Constants;
-import com.example.aacapplication.data.entity.Post;
 
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HostnameVerifier;
@@ -19,12 +17,7 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.MutableLiveData;
 import okhttp3.OkHttpClient;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -36,20 +29,8 @@ public class PostRepository {
         return InstantHolder.sRepository;
     }
 
-    public void getPostList(final MutableLiveData<List<Post>> src) {
-        InstantHolder.sRetrofit.create(PostService.class).getPostList().enqueue(new Callback<List<Post>>() {
-            @Override
-            public void onResponse(@NonNull Call<List<Post>> call, @NonNull Response<List<Post>> response) {
-                if (response.isSuccessful()) {
-                    src.setValue(response.body());
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<List<Post>> call, @NonNull Throwable t) {
-                Log.d(TAG, t.getMessage());
-            }
-        });
+    public PostService getPostService() {
+        return InstantHolder.sRetrofit.create(PostService.class);
     }
 
     static class InstantHolder {
