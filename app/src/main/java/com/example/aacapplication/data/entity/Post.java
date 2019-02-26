@@ -1,5 +1,7 @@
 package com.example.aacapplication.data.entity;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Post {
 
     /*
@@ -51,4 +53,22 @@ public class Post {
     public int id;
     public String title;
     public String content;
+    public int replies;
+    public String url;
+    public Node node;
+    public Member member;
+
+    public static class Node {
+        public String name;
+    }
+
+    public static class Member {
+        public String username;
+        @SerializedName("avatar_normal")
+        public String avatarNormal;
+        @SerializedName("avatar_large")
+        public String avatarLarge;
+        @SerializedName("avatar_mini")
+        public String avatarMini;
+    }
 }
